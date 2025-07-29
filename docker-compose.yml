@@ -1,0 +1,28 @@
+
+
+services:
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: notepad-backend
+    ports:
+      - "5005:5005"
+    volumes:
+      - ./server:/app
+    restart: always
+
+  
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: notepad-frontend
+    ports:
+      - "3001:80"
+    volumes:
+      - ./client:/app
+    restart: always
+    environment:
+      - REACT_APP_BACKEND_URL=http://notepad-backend:5005
+     
