@@ -64,7 +64,7 @@ notepad-app/
 ## 🐳 Docker (Local Development)
 
 <img width="1920" height="1080" alt="Screenshot (31)" src="https://github.com/user-attachments/assets/77dfcfe3-540e-48d9-93ec-d972c81b1206" />
-<img width="1920" height="1080" alt="Screenshot (31)" src="https://github.com/user-attachments/assets/b8bfe994-5ec4-449b-ba75-9964cbc0cd62" />
+<img width="1920" height="1080" alt="Screenshot (32)" src="https://github.com/user-attachments/assets/9fee3bd6-bb61-41e8-b136-cbd0cf2fd583" />
 
 
 
