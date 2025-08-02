@@ -1,27 +1,8 @@
 
+
 # 📝 notepad-app
 
-A full-stack Dockerized note-taking web app built with **React** (frontend) and **Flask** (backend), using **MongoDB** for storage. The app is containerized with **Docker**, served via **Nginx**, and deployed on **IBM Cloud Kubernetes Service (IKS)** with optional HTTPS.
-
----
-
-## 📌 Features
-
-- Add, view, and delete notes
-- Responsive React frontend
-- RESTful API with Flask backend
-- MongoDB database
-- Dockerized multi-container setup
-- Kubernetes deployment on IBM Cloud
-- HTTPS via Ingress + TLS
-
----
-
-## 🧱 Tech Stack
-
-| Frontend | Backend | Database | DevOps / Cloud |
-|----------|---------|----------|----------------|
-| React.js | Flask   | MongoDB  | Docker, Kubernetes, IBM Cloud, Nginx |
+A full-stack web application for managing notes, featuring a **React frontend**, **Flask backend**, **MongoDB database**, and **Docker-based deployment**. It supports containerized hosting, reverse proxy via **Nginx**, and is ready for deployment on **IBM Cloud** using Kubernetes.
 
 ---
 
@@ -31,39 +12,42 @@ A full-stack Dockerized note-taking web app built with **React** (frontend) and 
 
 notepad-app/
 ├── client/                     # React frontend
-│   └── src/
-│   └── public/
+│   ├── src/
+│   ├── public/
 │   └── package.json
 ├── server/                     # Flask backend
-│   └── app.py
+│   ├── app.py
 │   └── requirements.txt
 ├── nginx/                      # Nginx reverse proxy config
 │   └── default.conf
 ├── kubernetes/                 # Deployment manifests for IBM Cloud
 │   └── \*.yaml
 ├── screenshots/                # App screenshots
-│   └── home.png
-│   └── create-note.png
+│   ├── home.png
+│   ├── create-note.png
 │   └── mobile-view\.png
 ├── docker-compose.yml
 └── README.md
 
------
+````
+
+---
 
 ## 📬 Postman API Testing for `notepad-app`
 
-If `postman-collection.json` is not available, you can test the API manually using the following endpoints:
+Use the following REST endpoints to test your Flask API:
 
-| Method | Endpoint         | Description             |
-| ------ | ---------------- | ----------------------- |
-| GET    | `/api/notes`     | List all notes          |
-| POST   | `/api/notes`     | Create a new note       |
-| PUT    | `/api/notes/:id` | Update an existing note |
-| DELETE | `/api/notes/:id` | Delete a note           |
+| Method | Endpoint           | Description             |
+|--------|--------------------|-------------------------|
+| GET    | `/api/notes`       | Fetch all notes         |
+| POST   | `/api/notes`       | Create a new note       |
+| PUT    | `/api/notes/:id`   | Update an existing note |
+| DELETE | `/api/notes/:id`   | Delete a note           |
 
-### 🔄 Sample Request
+### 🔄 Sample `POST` Request
 
-**POST** `http://localhost:5005/api/notes`
+**URL**: `http://localhost:5005/api/notes`  
+**Body**:
 
 ```json
 {
@@ -71,53 +55,41 @@ If `postman-collection.json` is not available, you can test the API manually usi
   "content": "This is a sample note for testing.",
   "date": "2025-08-02"
 }
+````
+
 
 ---
 
-## 🐳 Docker Workflow (for `notepad-app`)
+## 🐳 Docker Workflow
 
-### 🔧 Build Docker Images
+
 
 ```bash
 docker build -t notepad-frontend ./client
 docker build -t notepad-backend ./server
 ```
 
-### 🚀 Run Containers
-
 ```bash
+# Frontend on port 3000
 docker run -d -p 3000:80 --name notepad-frontend notepad-frontend
+
+# Backend on port 5005
 docker run -d -p 5005:5005 --name notepad-backend notepad-backend
 ```
 
-### 🧩 Or Use Docker Compose
-
-If you have a `docker-compose.yml`, run:
 
 ```bash
 docker-compose up --build
 ```
 
-This will run:
+📍 This will expose:
 
-* Frontend at `http://localhost:3000`
-* Backend at `http://localhost:5005/api/notes`
+* Frontend → [http://localhost:3000](http://localhost:3000)
+* Backend API → [http://localhost:5005/api/notes](http://localhost:5005/api/notes)
+
+
 
 ---
-
-Let me know if you want a `postman-collection.json` generated from these endpoints or markdown with images embedded.
-
-This will run:
-* Frontend: [http://localhost:3000](http://localhost:3000)
-* Backend: [http://localhost:5005](http://localhost:5005)
-
-
-
-🚀 Run Containers
-
-docker run -d -p 3000:80 --name notepad-frontend notepad-frontend
-docker run -d -p 5005:5005 --name notepad-backend notepad-backend
-
 
 ## 🖼️ Screenshots
 
@@ -137,76 +109,93 @@ docker run -d -p 5005:5005 --name notepad-backend notepad-backend
 ## 🐳 Docker (Images)
 <img width="1920" height="1080" alt="Screenshot (32)" src="https://github.com/user-attachments/assets/9fee3bd6-bb61-41e8-b136-cbd0cf2fd583" />
 
+---
 
+## ☁️ Deploy on IBM Cloud
 
+Refer to the `kubernetes/*.yaml` files for IBM Cloud Kubernetes deployment:
 
-## ☁️ IBM Cloud Kubernetes Deployment
+1. ✅ Push Docker images to IBM Container Registry:
 
-### ✅ 1. IBM CLI Login
+   ```bash
+   docker tag <image> jp.icr.io/<namespace>/<image-name>
+   docker push jp.icr.io/<namespace>/<image-name>
+   ```
 
-```bash
-ibmcloud login
-ibmcloud ks cluster ls
-ibmcloud cr login
-```
+2. 🧠 Create a cluster or use Code Engine.
 
-### 🚀 2. Create Cluster
+3. 🚀 Apply manifests:
 
-```bash
-ibmcloud ks cluster create classic --name notepad-cluster --zone eu-de-1 --workers 1 --flavor bx2.4x16
-```
+   ```bash
+   kubectl apply -f kubernetes/
+   ```
 
-### 📦 3. Build & Push Images
+> See IBM Cloud documentation for more: [https://cloud.ibm.com/docs](https://cloud.ibm.com/docs)
 
-```bash
-docker build -t us.icr.io/your-namespace/notepad-client ./client
-docker build -t us.icr.io/your-namespace/notepad-server ./server
+---
 
-docker push us.icr.io/your-namespace/notepad-client
-docker push us.icr.io/your-namespace/notepad-server
-```
+## 🧠 Environment Setup
 
-### ⚙️ 4. Apply Kubernetes YAMLs
+Create a `.env` file (if needed) for Flask:
 
-```bash
-kubectl apply -f kubernetes/
+```env
+MONGO_URI=mongodb+srv://<user>:<pass>@cluster.mongodb.net/<dbname>
+FLASK_ENV=development
 ```
 
 ---
 
-## 🔐 HTTPS via Ingress
+## 📦 Backend Dependencies
 
-You can enable HTTPS using:
+If not using Docker, install Flask dependencies manually:
 
-* IBM Cloud Ingress + TLS Certificate via UI
-* Or: Cert-manager + Let’s Encrypt + NGINX Ingress Controller
+```bash
+cd server
+pip install -r requirements.txt
+```
 
-Update `ingress.yaml` to include TLS configuration.
+🔧 Common Issues & Solutions
 
----
+| Problem                       | Fix                                                          |
+| ----------------------------- | ------------------------------------------------------------ |
+| 🔄 Docker services can't talk | Use `docker-compose` so all services share a default network |
+| 🌐 CORS errors                | Backend uses `flask-cors`, Nginx handles proxy headers       |
+| 🧭 IBM namespace/auth         | Run `ibmcloud cr namespace-add`, `ibmcloud cr login`         |
 
-## ⚠️ Common Issues
+----
 
-* `P0005 IAM token` error: means your account isn't linked properly to IBM IAM.
-* NodePort issues: prefer using Ingress for public routing.
-* Volume mounts for MongoDB (if using persistent storage)
+----
+🚀 Future Enhancements
+🔐 JWT Auth + Role Management
 
----
+⏰ Due Dates, Priority Filters
 
-## ✅ TODO
+📊 Mongo Aggregation & Usage Stats
 
-* Add user auth
-* Note editing
-* Offline note saving
-* Theme support (dark mode)
+☁️ Code Engine Deployment + CI/CD
 
----
+✅ Unit + Integration Testing (Jest + Supertest)
 
-## 🧑‍💻 Author
+----
 
-**Ishita Chaurasia**
-GitHub: [@ishcares](https://github.com/ishcares)
+----
 
+🧠 Why This Project Stands Out
+✅ Practical DevOps (Docker + IBM Cloud)
+✅ Structured backend + modular frontend
+✅ Full SDLC: dev → test → containerize → deploy
+✅ Clean docs, ideal for cloud environments
+✅ Scalable, real-world architecture
+
+----
+
+----
+## 👩‍💻 Author
+
+**Ishita Chaurasia**  
+🔗 GitHub: [github.com/ishcares](https://github.com/ishcares)  
+📧 Email: ishita.chaurasia@example.com  
+----
 
 
 
