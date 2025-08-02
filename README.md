@@ -51,7 +51,48 @@ notepad-app/
 ````
 
 ---
+📬 Postman API Testing
+If postman-collection.json is not available, manually test your API using the following endpoints in Postman:
 
+| Method | Endpoint         | Description             |
+| ------ | ---------------- | ----------------------- |
+| GET    | `/api/notes`     | List all notes          |
+| POST   | `/api/notes`     | Create a new note       |
+| PUT    | `/api/notes/:id` | Update an existing note |
+| DELETE | `/api/notes/:id` | Delete a note           |
+
+🔄 Sample Request
+POST http://localhost:5005/api/notes
+
+{
+  "title": "Sample Note",
+  "content": "This is a sample note for testing.",
+  "date": "2025-08-02"
+}
+
+🐳 Docker Workflow (for notepad-app)
+🔧 Build Docker Images
+
+docker build -t notepad-frontend ./client
+docker build -t notepad-backend ./server
+
+🧩 Or Use Docker Compose
+If you have a docker-compose.yml, run
+
+docker-compose up --build
+
+This will run:
+* Frontend: [http://localhost:3000](http://localhost:3000)
+* Backend: [http://localhost:5005](http://localhost:5005)
+
+
+
+🚀 Run Containers
+
+docker run -d -p 3000:80 --name notepad-frontend notepad-frontend
+docker run -d -p 5005:5005 --name notepad-backend notepad-backend
+
+Screenshot (471)
 ## 🖼️ Screenshots
 
 ### ✅ Home Page
@@ -61,18 +102,15 @@ notepad-app/
 ### 📝 Creating a Note
 <img width="1920" height="1080" alt="Screenshot (19)" src="https://github.com/user-attachments/assets/1236a668-04ca-4d38-af58-645beb18ac2e" />
 
-## 🐳 Docker (Local Development)
-
+## 🐳 Docker (Container)
 <img width="1920" height="1080" alt="Screenshot (31)" src="https://github.com/user-attachments/assets/77dfcfe3-540e-48d9-93ec-d972c81b1206" />
+<img width="1920" height="1080" alt="Screenshot (33)" src="https://github.com/user-attachments/assets/cfaf5701-c10f-4656-b379-14b93afe1ca7" />
+
+## 🐳 Docker (Images)
 <img width="1920" height="1080" alt="Screenshot (32)" src="https://github.com/user-attachments/assets/9fee3bd6-bb61-41e8-b136-cbd0cf2fd583" />
 
 
 
-
-* Frontend: [http://localhost:3000](http://localhost:3000)
-* Backend: [http://localhost:5005](http://localhost:5005)
-
----
 
 ## ☁️ IBM Cloud Kubernetes Deployment
 
@@ -141,9 +179,6 @@ Update `ingress.yaml` to include TLS configuration.
 **Ishita Chaurasia**
 GitHub: [@ishcares](https://github.com/ishcares)
 
-### 🧑‍💻 Author
 
-**Ishita Chaurasia**
-GitHub: [@ishcares](https://github.com/ishcares)
 
 
