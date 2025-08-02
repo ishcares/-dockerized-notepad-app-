@@ -190,11 +190,10 @@ pip install -r requirements.txt
 ----
 
 ----
-## 👩‍💻 Author
-
-**Ishita Chaurasia**  
-🔗 GitHub: [github.com/ishcares](https://github.com/ishcares)  
-📧 Email: ishita.chaurasia@example.com  
+👩‍💻 Author
+Ishita Chaurasia
+🔗 GitHub: github.com/ishcares
+📧 Email: ishita.chaurasia@example.com
 ----
 
 
