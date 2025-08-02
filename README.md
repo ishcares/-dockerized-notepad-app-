@@ -48,11 +48,11 @@ notepad-app/
 ├── docker-compose.yml
 └── README.md
 
-````
+-----
 
----
-📬 Postman API Testing
-If postman-collection.json is not available, manually test your API using the following endpoints in Postman:
+## 📬 Postman API Testing for `notepad-app`
+
+If `postman-collection.json` is not available, you can test the API manually using the following endpoints:
 
 | Method | Endpoint         | Description             |
 | ------ | ---------------- | ----------------------- |
@@ -61,25 +61,61 @@ If postman-collection.json is not available, manually test your API using the fo
 | PUT    | `/api/notes/:id` | Update an existing note |
 | DELETE | `/api/notes/:id` | Delete a note           |
 
-🔄 Sample Request
-POST http://localhost:5005/api/notes
+### 🔄 Sample Request
 
+**POST** `http://localhost:5005/api/notes`
+
+```json
 {
   "title": "Sample Note",
   "content": "This is a sample note for testing.",
   "date": "2025-08-02"
 }
+```
 
-🐳 Docker Workflow (for notepad-app)
-🔧 Build Docker Images
+> Replace `localhost:5005` with your deployed backend URL if testing in production.
 
+### 📸 Postman Screenshots
+
+* **GET Method** – Screenshot showing list of notes
+* **POST Method** – Screenshot of note creation
+* **PUT Method** – Screenshot updating a note
+* **DELETE Method** – Screenshot confirming deletion
+
+---
+
+## 🐳 Docker Workflow (for `notepad-app`)
+
+### 🔧 Build Docker Images
+
+```bash
 docker build -t notepad-frontend ./client
 docker build -t notepad-backend ./server
+```
 
-🧩 Or Use Docker Compose
-If you have a docker-compose.yml, run
+### 🚀 Run Containers
 
+```bash
+docker run -d -p 3000:80 --name notepad-frontend notepad-frontend
+docker run -d -p 5005:5005 --name notepad-backend notepad-backend
+```
+
+### 🧩 Or Use Docker Compose
+
+If you have a `docker-compose.yml`, run:
+
+```bash
 docker-compose up --build
+```
+
+This will run:
+
+* Frontend at `http://localhost:3000`
+* Backend at `http://localhost:5005/api/notes`
+
+---
+
+Let me know if you want a `postman-collection.json` generated from these endpoints or markdown with images embedded.
 
 This will run:
 * Frontend: [http://localhost:3000](http://localhost:3000)
@@ -92,7 +128,7 @@ This will run:
 docker run -d -p 3000:80 --name notepad-frontend notepad-frontend
 docker run -d -p 5005:5005 --name notepad-backend notepad-backend
 
-Screenshot (471)
+
 ## 🖼️ Screenshots
 
 ### ✅ Home Page
@@ -102,9 +138,11 @@ Screenshot (471)
 ### 📝 Creating a Note
 <img width="1920" height="1080" alt="Screenshot (19)" src="https://github.com/user-attachments/assets/1236a668-04ca-4d38-af58-645beb18ac2e" />
 
+
 ## 🐳 Docker (Container)
 <img width="1920" height="1080" alt="Screenshot (31)" src="https://github.com/user-attachments/assets/77dfcfe3-540e-48d9-93ec-d972c81b1206" />
 <img width="1920" height="1080" alt="Screenshot (33)" src="https://github.com/user-attachments/assets/cfaf5701-c10f-4656-b379-14b93afe1ca7" />
+
 
 ## 🐳 Docker (Images)
 <img width="1920" height="1080" alt="Screenshot (32)" src="https://github.com/user-attachments/assets/9fee3bd6-bb61-41e8-b136-cbd0cf2fd583" />
