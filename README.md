@@ -1,88 +1,90 @@
-Perfect! Here’s your full, detailed `README.md` including **project structure**, **IBM Cloud deployment**, and everything else.
+Great! Here's your full `README.md` **with screenshots section included**. You can copy this directly into your file, assuming your screenshots are saved inside a `screenshots/` folder in your project.
 
 ---
 
-## 📝 notepad-app
+```markdown
+# 📝 notepad-app
 
-A full-stack Dockerized note-taking web app built with **React** (frontend) and **Flask** (backend), using **MongoDB** for persistent storage. The app is containerized using Docker, served through **Nginx**, and deployed on **IBM Cloud Kubernetes Service (IKS)** with optional HTTPS support.
-
----
-
-### 📌 Features
-
-* Add, view, and delete notes
-* Responsive and interactive React frontend
-* Flask REST API with MongoDB integration
-* Dockerized multi-container architecture
-* Kubernetes deployment on IBM Cloud
-* HTTPS (via Ingress + TLS certificate)
+A full-stack Dockerized note-taking web app built with **React** (frontend) and **Flask** (backend), using **MongoDB** for storage. The app is containerized with **Docker**, served via **Nginx**, and deployed on **IBM Cloud Kubernetes Service (IKS)** with optional HTTPS.
 
 ---
 
-### 🧱 Tech Stack
+## 📌 Features
 
-| Frontend | Backend | Database | DevOps / Cloud                       |
-| -------- | ------- | -------- | ------------------------------------ |
+- Add, view, and delete notes
+- Responsive React frontend
+- RESTful API with Flask backend
+- MongoDB database
+- Dockerized multi-container setup
+- Kubernetes deployment on IBM Cloud
+- HTTPS via Ingress + TLS
+
+---
+
+## 🧱 Tech Stack
+
+| Frontend | Backend | Database | DevOps / Cloud |
+|----------|---------|----------|----------------|
 | React.js | Flask   | MongoDB  | Docker, Kubernetes, IBM Cloud, Nginx |
 
 ---
 
-### 📂 Project Structure
+## 📂 Project Structure
 
 ```
+
 notepad-app/
 ├── client/                     # React frontend
 │   └── src/
-│       └── components/         # React components (Note, NoteList, etc.)
-│       └── App.js
-│       └── index.js
 │   └── public/
 │   └── package.json
-│
 ├── server/                     # Flask backend
-│   └── app.py                  # Main Flask app
+│   └── app.py
 │   └── requirements.txt
-│
 ├── nginx/                      # Nginx reverse proxy config
 │   └── default.conf
-│
-├── kubernetes/                 # Kubernetes deployment YAMLs
-│   └── client-deployment.yaml
-│   └── server-deployment.yaml
-│   └── mongo-deployment.yaml
-│   └── nginx-deployment.yaml
-│   └── ingress.yaml
-│
-├── docker-compose.yml         # For local dev setup
-├── .dockerignore
-├── .gitignore
+├── kubernetes/                 # Deployment manifests for IBM Cloud
+│   └── \*.yaml
+├── screenshots/                # App screenshots
+│   └── home.png
+│   └── create-note.png
+│   └── mobile-view\.png
+├── docker-compose.yml
 └── README.md
-```
+
+````
 
 ---
 
-### 🐳 Docker (Local Development)
+## 🖼️ Screenshots
+
+### ✅ Home Page
+![Home Page](./screenshots/home.png)
+
+### 📝 Creating a Note
+![Create Note](./screenshots/create-note.png)
+
+### 📱 Mobile View
+![Mobile](./screenshots/mobile-view.png)
+
+---
+
+## 🐳 Docker (Local Development)
 
 Run all services locally:
 
 ```bash
 docker-compose up --build
-```
+````
 
 * Frontend: [http://localhost:3000](http://localhost:3000)
 * Backend: [http://localhost:5005](http://localhost:5005)
 
 ---
 
-### ☁️ Deploying on IBM Cloud Kubernetes Service (IKS)
+## ☁️ IBM Cloud Kubernetes Deployment
 
-#### ✅ 1. Prerequisites
-
-* [IBM Cloud CLI](https://cloud.ibm.com/docs/cli?topic=cli-getting-started)
-* [IBM Cloud Container Registry](https://cloud.ibm.com/docs/Registry?topic=Registry-getting-started)
-* [IBM Kubernetes Service (IKS)](https://cloud.ibm.com/kubernetes/catalog)
-
-Login:
+### ✅ 1. IBM CLI Login
 
 ```bash
 ibmcloud login
@@ -90,19 +92,13 @@ ibmcloud ks cluster ls
 ibmcloud cr login
 ```
 
----
-
-#### 🚀 2. Create Cluster
+### 🚀 2. Create Cluster
 
 ```bash
 ibmcloud ks cluster create classic --name notepad-cluster --zone eu-de-1 --workers 1 --flavor bx2.4x16
 ```
 
----
-
-#### 📦 3. Build and Push Docker Images
-
-Tag and push images to IBM Cloud Container Registry:
+### 📦 3. Build & Push Images
 
 ```bash
 docker build -t us.icr.io/your-namespace/notepad-client ./client
@@ -112,48 +108,46 @@ docker push us.icr.io/your-namespace/notepad-client
 docker push us.icr.io/your-namespace/notepad-server
 ```
 
----
-
-#### ⚙️ 4. Apply Kubernetes Manifests
+### ⚙️ 4. Apply Kubernetes YAMLs
 
 ```bash
 kubectl apply -f kubernetes/
 ```
 
-Make sure `kubernetes/*.yaml` files use the correct image URLs (from IBM Container Registry).
+---
+
+## 🔐 HTTPS via Ingress
+
+You can enable HTTPS using:
+
+* IBM Cloud Ingress + TLS Certificate via UI
+* Or: Cert-manager + Let’s Encrypt + NGINX Ingress Controller
+
+Update `ingress.yaml` to include TLS configuration.
 
 ---
 
-#### 🔐 5. HTTPS with Ingress + TLS
+## ⚠️ Common Issues
 
-You can use:
-
-* IBM Cloud Ingress Controller (via Console)
-* Or: cert-manager + NGINX Ingress Controller (for Let’s Encrypt auto TLS)
-
-Update `ingress.yaml` to include TLS block.
+* `P0005 IAM token` error: means your account isn't linked properly to IBM IAM.
+* NodePort issues: prefer using Ingress for public routing.
+* Volume mounts for MongoDB (if using persistent storage)
 
 ---
 
-### ⚠️ Common Challenges
+## ✅ TODO
 
-* IAM token exchange errors (`P0005`)
-  → Ensure your account is properly linked to IAM.
-
-* Kubernetes networking (NodePort vs Ingress)
-
-* TLS/SSL for secure access
+* Add user auth
+* Note editing
+* Offline note saving
+* Theme support (dark mode)
 
 ---
 
-### ✅ TODOs
+## 🧑‍💻 Author
 
-* Add login & user authentication
-* Allow note editing
-* Save notes offline (IndexedDB)
-* Add UI themes (dark/light mode)
-
----
+**Ishita Chaurasia**
+GitHub: [@ishcares](https://github.com/ishcares)
 
 ### 🧑‍💻 Author
 
