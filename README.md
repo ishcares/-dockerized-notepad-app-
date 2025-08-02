@@ -71,16 +71,6 @@ If `postman-collection.json` is not available, you can test the API manually usi
   "content": "This is a sample note for testing.",
   "date": "2025-08-02"
 }
-```
-
-> Replace `localhost:5005` with your deployed backend URL if testing in production.
-
-### 📸 Postman Screenshots
-
-* **GET Method** – Screenshot showing list of notes
-* **POST Method** – Screenshot of note creation
-* **PUT Method** – Screenshot updating a note
-* **DELETE Method** – Screenshot confirming deletion
 
 ---
 
