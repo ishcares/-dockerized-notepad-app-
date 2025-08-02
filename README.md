@@ -1,8 +1,4 @@
-Great! Here's your full `README.md` **with screenshots section included**. You can copy this directly into your file, assuming your screenshots are saved inside a `screenshots/` folder in your project.
 
----
-
-```markdown
 # 📝 notepad-app
 
 A full-stack Dockerized note-taking web app built with **React** (frontend) and **Flask** (backend), using **MongoDB** for storage. The app is containerized with **Docker**, served via **Nginx**, and deployed on **IBM Cloud Kubernetes Service (IKS)** with optional HTTPS.
@@ -59,23 +55,19 @@ notepad-app/
 ## 🖼️ Screenshots
 
 ### ✅ Home Page
-![Home Page](./screenshots/home.png)
+<img width="1920" height="1080" alt="Screenshot (18)" src="https://github.com/user-attachments/assets/26ec98d4-b158-4aaf-9a74-5af20bfdf9c7" />
+
 
 ### 📝 Creating a Note
-![Create Note](./screenshots/create-note.png)
-
-### 📱 Mobile View
-![Mobile](./screenshots/mobile-view.png)
-
----
+<img width="1920" height="1080" alt="Screenshot (19)" src="https://github.com/user-attachments/assets/1236a668-04ca-4d38-af58-645beb18ac2e" />
 
 ## 🐳 Docker (Local Development)
 
-Run all services locally:
+<img width="1920" height="1080" alt="Screenshot (31)" src="https://github.com/user-attachments/assets/77dfcfe3-540e-48d9-93ec-d972c81b1206" />
+<img width="1920" height="1080" alt="Screenshot (31)" src="https://github.com/user-attachments/assets/b8bfe994-5ec4-449b-ba75-9964cbc0cd62" />
 
-```bash
-docker-compose up --build
-````
+
+
 
 * Frontend: [http://localhost:3000](http://localhost:3000)
 * Backend: [http://localhost:5005](http://localhost:5005)
